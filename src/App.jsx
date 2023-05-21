@@ -37,7 +37,7 @@ function App() {
         setNewData("");
         fetchData();
       } else {
-        alert("Please connect to MetaMask first.");
+        alert("Please connect your MetaMask.");
       }
     } catch (error) {
       console.error("Error updating data:", error);
