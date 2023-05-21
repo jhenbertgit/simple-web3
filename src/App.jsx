@@ -26,12 +26,19 @@ function App() {
 
   const updateData = async () => {
     try {
-      const contract = new web3.eth.Contract(dataContract.abi, contractAddress);
-      await contract.methods
-        .setData(newData)
-        .send({ from: window.ethereum.selectedAddress });
-      setNewData("");
-      fetchData();
+      if (window.ethereum && window.ethereum.selectedAddress) {
+        const contract = new web3.eth.Contract(
+          dataContract.abi,
+          contractAddress
+        );
+        await contract.methods
+          .setData(newData)
+          .send({ from: window.ethereum.selectedAddress });
+        setNewData("");
+        fetchData();
+      } else {
+        alert("Please connect to MetaMask first.");
+      }
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -50,8 +57,8 @@ function App() {
         <button onClick={updateData}>Update Data</button>
       </Card>
       <p>
-        This is my simple web 3. Try it by using your Metamask in Binance
-        Testnet
+        This is my simple web 3. Try it by connecting first your MetaMask. Make
+        sure you are in Binance Testnet.
       </p>
     </>
   );
